@@ -18,7 +18,15 @@ namespace MvcMovie.Controllers
         // GET: /NormalUsers/
         public ActionResult Index()
         {
-            return View(db.normal_user.ToList());
+            var models = new List<NormalUserViewModel>();
+            var normalUsers = db.normal_user.ToList();
+            normalUsers.ForEach(u =>
+            {
+                var email = db.email_address.Where(e => e.logon_id == u.logon_id && e.generation == u.generation).FirstOrDefault();
+                models.Add(new NormalUserViewModel(u, email));
+
+            });
+            return View(models);
         }
 
         // GET: /NormalUsers/Details/5

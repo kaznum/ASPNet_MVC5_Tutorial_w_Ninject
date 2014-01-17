@@ -29,6 +29,20 @@ namespace MvcMovie.Models
         [Range(0,150)]
         public int? Age { get; set; }
 
+        public NormalUserViewModel() { }
+
+        public NormalUserViewModel(normal_user normalUser, email_address email)
+        {
+            UserID = normalUser.user_id;
+            LogonID = normalUser.logon_id;
+            FamilyName = normalUser.family_name;
+            GivenName = normalUser.given_name;
+            Generation = normalUser.generation;
+            Age = normalUser.age;
+
+            if (email != null)
+                EmailAddress = email.address;
+        }
 
         public email_address GetEmailAddressEntity()
         {

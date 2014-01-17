@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AddressBookManagerDomain.Contexts.normal_user>
+﻿@model IEnumerable<MvcMovie.Models.NormalUserViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,22 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.generation)
+            @Html.DisplayNameFor(model => model.Generation)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user_id)
+            @Html.DisplayNameFor(model => model.UserID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.family_name)
+            @Html.DisplayNameFor(model => model.FamilyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.given_name)
+            @Html.DisplayNameFor(model => model.GivenName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.logon_id)
+            @Html.DisplayNameFor(model => model.LogonID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.age)
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
         </th>
         <th></th>
     </tr>
@@ -35,27 +38,30 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.generation)
+            @Html.DisplayFor(modelItem => item.Generation)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.user_id)
+            @Html.DisplayFor(modelItem => item.UserID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.family_name)
+            @Html.DisplayFor(modelItem => item.FamilyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.given_name)
+            @Html.DisplayFor(modelItem => item.GivenName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.logon_id)
+            @Html.DisplayFor(modelItem => item.LogonID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.age)
+            @Html.DisplayFor(modelItem => item.Age)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.user_id, generation = item.generation }) |
-            @Html.ActionLink("Details", "Details", new { id = item.user_id, generation = item.generation }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.user_id, generation = item.generation })
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserID, generation = item.Generation }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserID, generation = item.Generation }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserID, generation = item.Generation })
         </td>
     </tr>
 }
