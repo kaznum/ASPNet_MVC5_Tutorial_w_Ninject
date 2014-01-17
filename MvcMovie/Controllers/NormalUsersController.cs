@@ -101,7 +101,12 @@ namespace MvcMovie.Controllers
                 var user = model.GetNormalUserEntity();
                 var email = model.GetEmailAddressEntity();
                 db.Entry(user).State = EntityState.Modified;
-                db.Entry(email).State = EntityState.Modified;
+                
+                if (db.email_address.Where(e => e.logon_id == user.logon_id && e.generation == user.generation).FirstOrDefault() != null)
+                    db.Entry(email).State = EntityState.Modified;
+                else
+                    db.email_address.Add(email);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -120,7 +125,9 @@ namespace MvcMovie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(normal_user);
+            var email = db.email_address.Where(e => e.generation == generation && e.logon_id == normal_user.logon_id).FirstOrDefault();
+
+            return View(new NormalUserViewModel(normal_user, email));
         }
 
         // POST: /NormalUsers/Delete/5
@@ -130,8 +137,10 @@ namespace MvcMovie.Controllers
         {
             normal_user normal_user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
             var email = db.email_address.Where(e => e.logon_id == normal_user.logon_id && e.generation == generation).FirstOrDefault();
-            db.normal_user.Remove(normal_user);
-            db.email_address.Remove(email);
+            if (normal_user != null)
+                db.normal_user.Remove(normal_user);
+            if (email != null)
+               db.email_address.Remove(email);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

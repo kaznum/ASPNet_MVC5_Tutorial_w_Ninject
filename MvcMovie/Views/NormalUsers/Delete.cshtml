@@ -1,4 +1,4 @@
-﻿@model AddressBookManagerDomain.Contexts.normal_user
+﻿@model MvcMovie.Models.NormalUserViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -10,40 +10,7 @@
 <div>
     <h4>normal_user</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.family_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.family_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.given_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.given_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.logon_id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.logon_id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.age)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.age)
-        </dd>
-
-    </dl>
+    @Html.Partial("_NormalUserDetails", Model)
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

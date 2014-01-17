@@ -9,64 +9,7 @@
 <div>
     <h4>normal_user</h4>
 	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Generation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Generation)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FamilyName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FamilyName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GivenName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GivenName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LogonID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LogonID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-
-    </dl>
+    @Html.Partial("_NormalUserDetails", Model)
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.UserID, generation = Model.Generation }) |
