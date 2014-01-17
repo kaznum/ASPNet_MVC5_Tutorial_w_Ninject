@@ -615,6 +615,7 @@
     <Content Include="Views\NormalUsers\Details.cshtml" />
     <Content Include="Views\NormalUsers\Edit.cshtml" />
     <Content Include="Views\NormalUsers\Index.cshtml" />
+    <Content Include="Views\NormalUsers\_NormalUserForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AddressBookManagerDomain\AddressBookManagerDomain.csproj">

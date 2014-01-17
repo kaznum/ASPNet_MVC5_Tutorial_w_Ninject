@@ -76,12 +76,15 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            normal_user normal_user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
-            if (normal_user == null)
+            normal_user user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(normal_user);
+
+            var email = db.email_address.Where(e => e.generation == generation && e.logon_id == user.logon_id).FirstOrDefault();
+
+            return View(new NormalUserViewModel(user, email));
         }
 
         // POST: /NormalUsers/Edit/5
@@ -89,15 +92,18 @@ namespace MvcMovie.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="user_id,generation,family_name,given_name,logon_id,age")] normal_user normal_user)
+        public ActionResult Edit([Bind(Include="UserID,Generation,FamilyName,GivenName,LogonId,Age,EmailAddress")] NormalUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(normal_user).State = EntityState.Modified;
+                var user = model.GetNormalUserEntity();
+                var email = model.GetEmailAddressEntity();
+                db.Entry(user).State = EntityState.Modified;
+                db.Entry(email).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(normal_user);
+            return View(model);
         }
 
         // GET: /NormalUsers/Delete/5
