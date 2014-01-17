@@ -16,17 +16,23 @@ namespace MvcMovie.Models
         public string EmailAddress { get; set; }
         [Required]
         [RegularExpression(@"^[0-9]{0,5}$",ErrorMessage="世代は最大5ケタの数値を入力してください。")]
+        [DisplayName("世代")]
         public int? Generation { get; set; }
         [Required]
+        [DisplayName("ユーザーID")]
         public int? UserID { get; set; }
         [Required]
+        [DisplayName("氏")]
         public string FamilyName { get; set; }
         [Required]
+        [DisplayName("名")]
         public string GivenName { get; set; }
         [Required]
         [StringLength(7,MinimumLength=7,ErrorMessage="ログオンIDは7文字でなければなりません。")]
+        [DisplayName("ログオンID")]
         public string LogonID { get; set; }
         [Range(0,150)]
+        [DisplayName("年齢")]
         public int? Age { get; set; }
 
         public NormalUserViewModel() { }
