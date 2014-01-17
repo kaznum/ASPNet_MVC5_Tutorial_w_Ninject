@@ -52,20 +52,8 @@ namespace MvcMovie.Controllers
         {
             if (ModelState.IsValid)
             {
-                var normalUser = new normal_user();
-                var email = new email_address();
-                normalUser.user_id = (int)model.UserID;
-                normalUser.logon_id = model.LogonID;
-                normalUser.family_name = model.FamilyName;
-                normalUser.given_name = model.GivenName;
-                normalUser.age = model.Age;
-
-                email.address = model.EmailAddress;
-                email.logon_id = model.LogonID;
-                email.generation = (int)model.Generation;
-
-                db.normal_user.Add(normalUser);
-                db.email_address.Add(email);
+                db.normal_user.Add(model.GetNormalUserEntity());
+                db.email_address.Add(model.GetEmailAddressEntity());
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
