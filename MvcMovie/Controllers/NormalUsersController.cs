@@ -127,7 +127,9 @@ namespace MvcMovie.Controllers
         public ActionResult DeleteConfirmed(int id, int generation)
         {
             normal_user normal_user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
+            var email = db.email_address.Where(e => e.logon_id == normal_user.logon_id && e.generation == generation).FirstOrDefault();
             db.normal_user.Remove(normal_user);
+            db.email_address.Remove(email);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
