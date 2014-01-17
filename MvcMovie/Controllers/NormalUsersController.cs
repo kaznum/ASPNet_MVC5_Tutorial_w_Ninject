@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AddressBookManagerDomain.Contexts;
+using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
@@ -38,7 +39,8 @@ namespace MvcMovie.Controllers
         // GET: /NormalUsers/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new NormalUserViewModel();
+            return View(model);
         }
 
         // POST: /NormalUsers/Create
@@ -46,16 +48,29 @@ namespace MvcMovie.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="user_id,generation,family_name,given_name,logon_id,age")] normal_user normal_user)
+        public ActionResult Create([Bind(Include="UserID,Generation,FamilyName,GivenName,LogonID,Age,EmailAddress")] NormalUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.normal_user.Add(normal_user);
+                var normalUser = new normal_user();
+                var email = new email_address();
+                normalUser.user_id = (int)model.UserID;
+                normalUser.logon_id = model.LogonID;
+                normalUser.family_name = model.FamilyName;
+                normalUser.given_name = model.GivenName;
+                normalUser.age = model.Age;
+
+                email.address = model.EmailAddress;
+                email.logon_id = model.LogonID;
+                email.generation = (int)model.Generation;
+
+                db.normal_user.Add(normalUser);
+                db.email_address.Add(email);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(normal_user);
+            return View(model);
         }
 
         // GET: /NormalUsers/Edit/5

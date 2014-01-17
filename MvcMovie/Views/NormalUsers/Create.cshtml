@@ -1,4 +1,4 @@
-﻿@model AddressBookManagerDomain.Contexts.normal_user
+﻿@model MvcMovie.Models.NormalUserViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -17,50 +17,58 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.user_id, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.user_id)
-                @Html.ValidationMessageFor(model => model.user_id)
+                @Html.EditorFor(model => model.UserID)
+                @Html.ValidationMessageFor(model => model.UserID)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.generation, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Generation, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.generation)
-                @Html.ValidationMessageFor(model => model.generation)
+                @Html.EditorFor(model => model.Generation)
+                @Html.ValidationMessageFor(model => model.Generation)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.family_name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FamilyName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.family_name)
-                @Html.ValidationMessageFor(model => model.family_name)
+                @Html.EditorFor(model => model.FamilyName)
+                @Html.ValidationMessageFor(model => model.FamilyName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.given_name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GivenName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.given_name)
-                @Html.ValidationMessageFor(model => model.given_name)
+                @Html.EditorFor(model => model.GivenName)
+                @Html.ValidationMessageFor(model => model.GivenName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.logon_id, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LogonID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.logon_id)
-                @Html.ValidationMessageFor(model => model.logon_id)
+                @Html.EditorFor(model => model.LogonID)
+                @Html.ValidationMessageFor(model => model.LogonID)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.age, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EmailAddress, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.age)
-                @Html.ValidationMessageFor(model => model.age)
+                @Html.EditorFor(model => model.EmailAddress)
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Age)
+                @Html.ValidationMessageFor(model => model.Age)
             </div>
         </div>
 
