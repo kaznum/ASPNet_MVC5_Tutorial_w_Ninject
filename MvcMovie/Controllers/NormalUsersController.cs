@@ -41,7 +41,9 @@ namespace MvcMovie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(normal_user);
+            var email = db.email_address.Where(e => e.logon_id == normal_user.logon_id && e.generation == generation).FirstOrDefault();
+
+            return View(new NormalUserViewModel(normal_user, email));
         }
 
         // GET: /NormalUsers/Create
