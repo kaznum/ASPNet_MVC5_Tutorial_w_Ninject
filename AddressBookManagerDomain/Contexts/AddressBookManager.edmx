@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AddressBookManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="email_address">
+          <Key>
+            <PropertyRef Name="logon_id" />
+            <PropertyRef Name="generation" />
+          </Key>
+          <Property Name="logon_id" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="generation" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+警告 6002: テーブル/ビュー 'C:\SRC\ASPNET_MVC5_TUTORIAL_W_NINJECT\MVCMOVIE\APP_DATA\ADDRESSBOOKMANAGER.MDF.dbo.mail_template' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+        <EntityType Name="mail_template">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="subject" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="body" Type="ntext" />
+        </EntityType>
+        <EntityType Name="normal_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="generation" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="generation" Type="int" Nullable="false" />
+          <Property Name="family_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="given_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="logon_id" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="age" Type="int" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+警告 6002: テーブル/ビュー 'C:\SRC\ASPNET_MVC5_TUTORIAL_W_NINJECT\MVCMOVIE\APP_DATA\ADDRESSBOOKMANAGER.MDF.dbo.v_user' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+        <EntityType Name="v_user">
+          <Key>
+            <PropertyRef Name="logon_id" />
+            <PropertyRef Name="family_name" />
+            <PropertyRef Name="given_name" />
+            <PropertyRef Name="address" />
+          </Key>
+          <Property Name="logon_id" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="family_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="given_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AddressBookManagerModelStoreContainer">
+          <EntitySet Name="email_address" EntityType="Self.email_address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="normal_user" EntityType="Self.normal_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mail_template" EntityType="Self.mail_template" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [mail_template].[name] AS [name], 
+    [mail_template].[subject] AS [subject], 
+    [mail_template].[body] AS [body]
+    FROM [dbo].[mail_template] AS [mail_template]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_user" EntityType="Self.v_user" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_user].[logon_id] AS [logon_id], 
+    [v_user].[family_name] AS [family_name], 
+    [v_user].[given_name] AS [given_name], 
+    [v_user].[address] AS [address]
+    FROM [dbo].[v_user] AS [v_user]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AddressBookManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="email_address">
+          <Key>
+            <PropertyRef Name="logon_id" />
+            <PropertyRef Name="generation" />
+          </Key>
+          <Property Name="logon_id" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="generation" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="normal_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="generation" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="generation" Type="Int32" Nullable="false" />
+          <Property Name="family_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="given_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="logon_id" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Int32" />
+        </EntityType>
+        <EntityType Name="mail_template">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="subject" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="AddressBookManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="email_address" EntityType="Self.email_address" />
+          <EntitySet Name="normal_user" EntityType="Self.normal_user" />
+          <EntitySet Name="mail_template" EntityType="Self.mail_template" />
+          <EntitySet Name="v_user" EntityType="AddressBookManagerModel.v_user" />
+        </EntityContainer>
+        <EntityType Name="v_user">
+          <Key>
+            <PropertyRef Name="logon_id" />
+            <PropertyRef Name="family_name" />
+            <PropertyRef Name="given_name" />
+            <PropertyRef Name="address" />
+          </Key>
+          <Property Name="logon_id" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="family_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="given_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AddressBookManagerModelStoreContainer" CdmEntityContainer="AddressBookManagerEntities">
+          <EntitySetMapping Name="email_address">
+            <EntityTypeMapping TypeName="AddressBookManagerModel.email_address">
+              <MappingFragment StoreEntitySet="email_address">
+                <ScalarProperty Name="logon_id" ColumnName="logon_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="generation" ColumnName="generation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="normal_user">
+            <EntityTypeMapping TypeName="AddressBookManagerModel.normal_user">
+              <MappingFragment StoreEntitySet="normal_user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="generation" ColumnName="generation" />
+                <ScalarProperty Name="family_name" ColumnName="family_name" />
+                <ScalarProperty Name="given_name" ColumnName="given_name" />
+                <ScalarProperty Name="logon_id" ColumnName="logon_id" />
+                <ScalarProperty Name="age" ColumnName="age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mail_template">
+            <EntityTypeMapping TypeName="AddressBookManagerModel.mail_template">
+              <MappingFragment StoreEntitySet="mail_template">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="body" ColumnName="body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_user">
+            <EntityTypeMapping TypeName="AddressBookManagerModel.v_user">
+              <MappingFragment StoreEntitySet="v_user">
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="given_name" ColumnName="given_name" />
+                <ScalarProperty Name="family_name" ColumnName="family_name" />
+                <ScalarProperty Name="logon_id" ColumnName="logon_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

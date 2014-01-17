@@ -1,0 +1,50 @@
+﻿@model AddressBookManagerDomain.Contexts.normal_user
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>normal_user</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.family_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.family_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.given_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.given_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.logon_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.logon_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.age)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
