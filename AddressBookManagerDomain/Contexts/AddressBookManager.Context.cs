@@ -12,6 +12,7 @@ namespace AddressBookManagerDomain.Contexts
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Diagnostics;
     
     public partial class AddressBookManagerEntities : DbContext, AddressBookManagerDomain.Contexts.IAddressBookManagerEntities
     {
@@ -29,5 +30,10 @@ namespace AddressBookManagerDomain.Contexts
         public virtual DbSet<normal_user> normal_user { get; set; }
         public virtual DbSet<mail_template> mail_template { get; set; }
         public virtual DbSet<v_user> v_user { get; set; }
+        public new void Dispose()
+        {
+            Debug.WriteLine("AddressBookManagerEntities#Dispose is called");
+            base.Dispose();
+        }
     }
 }
