@@ -13,7 +13,12 @@ namespace MvcMovie.Controllers
 {
     public class NormalUsersController : Controller
     {
-        private AddressBookManagerEntities db = new AddressBookManagerEntities();
+
+        private IAddressBookManagerEntities db;
+        public NormalUsersController(IAddressBookManagerEntities entities)
+        {
+            db = entities;
+        }
 
         // GET: /NormalUsers/
         public ActionResult Index()

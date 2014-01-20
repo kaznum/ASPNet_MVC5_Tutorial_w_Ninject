@@ -13,7 +13,7 @@ namespace AddressBookManagerDomain.Contexts
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AddressBookManagerEntities : DbContext
+    public partial class AddressBookManagerEntities : DbContext, AddressBookManagerDomain.Contexts.IAddressBookManagerEntities
     {
         public AddressBookManagerEntities()
             : base("name=AddressBookManagerEntities")

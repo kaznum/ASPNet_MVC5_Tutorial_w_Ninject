@@ -81,6 +81,7 @@
     <Compile Include="Contexts\email_address.cs">
       <DependentUpon>AddressBookManager.tt</DependentUpon>
     </Compile>
+    <Compile Include="Contexts\IAddressBookManagerEntities.cs" />
     <Compile Include="Contexts\mail_template.cs">
       <DependentUpon>AddressBookManager.tt</DependentUpon>
     </Compile>

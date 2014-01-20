@@ -11,6 +11,7 @@ namespace MvcMovie.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using MvcMovie.Services;
+    using AddressBookManagerDomain.Contexts;
 
     public static class NinjectWebCommon 
     {
@@ -56,6 +57,7 @@ namespace MvcMovie.App_Start
         {
             //kernel.Load(Assembly.GetExecutingAssembly());
             kernel.Bind<IMessageService>().To<MessageService>();
+            kernel.Bind<IAddressBookManagerEntities>().To<AddressBookManagerEntities>().InRequestScope();
 
         }        
     }
