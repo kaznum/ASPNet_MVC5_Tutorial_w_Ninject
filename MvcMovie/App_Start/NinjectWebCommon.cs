@@ -57,7 +57,10 @@ namespace MvcMovie.App_Start
         {
             //kernel.Load(Assembly.GetExecutingAssembly());
             kernel.Bind<IMessageService>().To<MessageService>();
+            // InRequestScope may not be needed
+            // See https://github.com/ninject/Ninject.Web.Common/wiki/InRequestScope
             kernel.Bind<IAddressBookManagerEntities>().To<AddressBookManagerEntities>().InRequestScope();
+            //kernel.Bind<IAddressBookManagerEntities>().To<AddressBookManagerEntities>();
 
         }        
     }
