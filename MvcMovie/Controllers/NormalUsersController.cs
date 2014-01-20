@@ -106,9 +106,10 @@ namespace MvcMovie.Controllers
                 var user = model.GetNormalUserEntity();
                 var email = model.GetEmailAddressEntity();
                 db.Entry(user).State = EntityState.Modified;
-                
-                if (db.email_address.Where(e => e.logon_id == user.logon_id && e.generation == user.generation).FirstOrDefault() != null)
-                    db.Entry(email).State = EntityState.Modified;
+                var persistedEmail = db.email_address.Where(e => e.logon_id == user.logon_id && e.generation == user.generation).FirstOrDefault();
+                if (persistedEmail != null) {
+                    persistedEmail.address = email.address;
+                }
                 else
                     db.email_address.Add(email);
 
