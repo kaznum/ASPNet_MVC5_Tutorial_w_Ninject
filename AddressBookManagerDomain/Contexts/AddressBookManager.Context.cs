@@ -29,6 +29,7 @@ namespace AddressBookManagerDomain.Contexts
         public virtual DbSet<email_address> email_address { get; set; }
         public virtual DbSet<normal_user> normal_user { get; set; }
         public virtual DbSet<mail_template> mail_template { get; set; }
+        public virtual DbSet<occupation> occupations { get; set; }
         public virtual DbSet<v_user> v_user { get; set; }
         public new void Dispose()
         {

@@ -88,6 +88,9 @@
     <Compile Include="Contexts\normal_user.cs">
       <DependentUpon>AddressBookManager.tt</DependentUpon>
     </Compile>
+    <Compile Include="Contexts\occupation.cs">
+      <DependentUpon>AddressBookManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Contexts\v_user.cs">
       <DependentUpon>AddressBookManager.tt</DependentUpon>
     </Compile>

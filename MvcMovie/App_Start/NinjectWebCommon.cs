@@ -13,7 +13,7 @@ namespace MvcMovie.App_Start
     using MvcMovie.Services;
     using AddressBookManagerDomain.Contexts;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 

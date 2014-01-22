@@ -75,6 +75,19 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.OccupationCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (var code in Model.Occupations.Keys.OrderBy(m => m)) {
+                    <label>
+                    @Html.RadioButtonFor(model => model.OccupationCode, code)
+                    @Model.Occupations[code]
+                    </label>
+                }
+                @Html.ValidationMessageFor(model => model.OccupationCode)
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

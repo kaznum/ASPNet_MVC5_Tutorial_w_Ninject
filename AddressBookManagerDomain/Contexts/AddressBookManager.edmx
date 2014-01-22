@@ -36,6 +36,14 @@
           <Property Name="given_name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="logon_id" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="age" Type="int" />
+          <Property Name="occupation_code" Type="int" />
+        </EntityType>
+        <EntityType Name="occupation">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--生成中に見つかったエラー:
 警告 6002: テーブル/ビュー 'C:\SRC\ASPNET_MVC5_TUTORIAL_W_NINJECT\MVCMOVIE\APP_DATA\ADDRESSBOOKMANAGER.MDF.dbo.v_user' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
@@ -54,6 +62,7 @@
         <EntityContainer Name="AddressBookManagerModelStoreContainer">
           <EntitySet Name="email_address" EntityType="Self.email_address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="normal_user" EntityType="Self.normal_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="occupation" EntityType="Self.occupation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mail_template" EntityType="Self.mail_template" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [mail_template].[name] AS [name], 
@@ -94,6 +103,7 @@
           <Property Name="given_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="logon_id" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="age" Type="Int32" />
+          <Property Name="occupation_code" Type="Int32" />
         </EntityType>
         <EntityType Name="mail_template">
           <Key>
@@ -109,6 +119,7 @@
           <EntitySet Name="normal_user" EntityType="Self.normal_user" />
           <EntitySet Name="mail_template" EntityType="Self.mail_template" />
           <EntitySet Name="v_user" EntityType="AddressBookManagerModel.v_user" />
+          <EntitySet Name="occupations" EntityType="AddressBookManagerModel.occupation" />
         </EntityContainer>
         <EntityType Name="v_user">
           <Key>
@@ -121,6 +132,13 @@
           <Property Name="family_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="given_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="occupation">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -140,6 +158,7 @@
           <EntitySetMapping Name="normal_user">
             <EntityTypeMapping TypeName="AddressBookManagerModel.normal_user">
               <MappingFragment StoreEntitySet="normal_user">
+                <ScalarProperty Name="occupation_code" ColumnName="occupation_code" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="generation" ColumnName="generation" />
                 <ScalarProperty Name="family_name" ColumnName="family_name" />
@@ -165,6 +184,14 @@
                 <ScalarProperty Name="given_name" ColumnName="given_name" />
                 <ScalarProperty Name="family_name" ColumnName="family_name" />
                 <ScalarProperty Name="logon_id" ColumnName="logon_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="occupations">
+            <EntityTypeMapping TypeName="AddressBookManagerModel.occupation">
+              <MappingFragment StoreEntitySet="occupation">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -63,7 +63,7 @@ namespace MvcMovie.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="UserID,Generation,FamilyName,GivenName,LogonID,Age,EmailAddress")] NormalUserViewModel model)
+        public ActionResult Create([Bind(Include="UserID,Generation,FamilyName,GivenName,LogonID,Age,EmailAddress,OccupationCode")] NormalUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace MvcMovie.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="UserID,Generation,FamilyName,GivenName,LogonId,Age,EmailAddress")] NormalUserViewModel model)
+        public ActionResult Edit([Bind(Include = "UserID,Generation,FamilyName,GivenName,LogonId,Age,EmailAddress,OccupationCode")] NormalUserViewModel model)
         {
             if (ModelState.IsValid)
             {

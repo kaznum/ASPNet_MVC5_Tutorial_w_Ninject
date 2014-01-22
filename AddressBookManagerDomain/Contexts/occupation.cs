@@ -12,14 +12,9 @@ namespace AddressBookManagerDomain.Contexts
     using System;
     using System.Collections.Generic;
     
-    public partial class normal_user
+    public partial class occupation
     {
-        public int user_id { get; set; }
-        public int generation { get; set; }
-        public string family_name { get; set; }
-        public string given_name { get; set; }
-        public string logon_id { get; set; }
-        public Nullable<int> age { get; set; }
-        public Nullable<int> occupation_code { get; set; }
+        public int code { get; set; }
+        public string name { get; set; }
     }
 }

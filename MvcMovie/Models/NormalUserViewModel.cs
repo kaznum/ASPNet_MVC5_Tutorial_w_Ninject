@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MvcMovie.Models
 {
@@ -34,6 +35,9 @@ namespace MvcMovie.Models
         [Range(0,150)]
         [DisplayName("年齢")]
         public int? Age { get; set; }
+        [Required]
+        [DisplayName("職業")]
+        public int? OccupationCode { get; set; }
 
         public NormalUserViewModel() { }
 
@@ -45,6 +49,7 @@ namespace MvcMovie.Models
             GivenName = normalUser.given_name;
             Generation = normalUser.generation;
             Age = normalUser.age;
+            OccupationCode = normalUser.occupation_code;
 
             if (email != null)
                 EmailAddress = email.address;
@@ -68,7 +73,36 @@ namespace MvcMovie.Models
             normalUser.given_name = GivenName;
             normalUser.generation = (int)Generation;
             normalUser.age = Age;
+            normalUser.occupation_code = OccupationCode;
             return normalUser;
+        }
+
+        public Dictionary<int, string> Occupations
+        { 
+            get {
+                var occus = new Dictionary<int, string>();
+                var entities = (IAddressBookManagerEntities)DependencyResolver.Current.GetService(typeof(IAddressBookManagerEntities));
+                entities.occupations.ToList().ForEach(o => occus.Add(o.code, o.name));
+                return occus;
+            } 
+        }
+
+        [DisplayName("職業")]
+        public string OccupationName
+        {
+            get
+            {
+                if (this.OccupationCode == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var entities = (IAddressBookManagerEntities)DependencyResolver.Current.GetService(typeof(IAddressBookManagerEntities));
+                    var occ = entities.occupations.Where(o => o.code == this.OccupationCode).First();
+                    return occ.name;
+                }
+            }
         }
     }
 }
