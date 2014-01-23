@@ -24,9 +24,11 @@ namespace MvcMovie.Controllers
         {
             var models = new List<NormalUserViewModel>();
             var normalUsers = db.normal_user.ToList();
+
+            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
             normalUsers.ForEach(u =>
             {
-                var email = db.email_address.Where(e => e.logon_id == u.logon_id && e.generation == u.generation).FirstOrDefault();
+                var email = emailAddressRepository.Find(u.logon_id, u.generation);
                 models.Add(new NormalUserViewModel(u, email));
 
             });
@@ -86,13 +88,16 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            normal_user user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
+            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
+            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+
+            normal_user user = normalUserRepository.Find((int)id, (int)generation);
             if (user == null)
             {
                 return HttpNotFound();
             }
 
-            var email = db.email_address.Where(e => e.generation == generation && e.logon_id == user.logon_id).FirstOrDefault();
+            var email = emailAddressRepository.Find(user.logon_id, user.generation);
 
             return View(new NormalUserViewModel(user, email));
         }
@@ -108,8 +113,11 @@ namespace MvcMovie.Controllers
             {
                 var user = model.GetNormalUserEntity();
                 var email = model.GetEmailAddressEntity();
+
                 db.Entry(user).State = EntityState.Modified;
-                var persistedEmail = db.email_address.Where(e => e.logon_id == user.logon_id && e.generation == user.generation).FirstOrDefault();
+
+                var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+                var persistedEmail = emailAddressRepository.Find(user.logon_id, user.generation);
                 if (persistedEmail != null) {
                     persistedEmail.address = email.address;
                 }
@@ -129,12 +137,15 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            normal_user normal_user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
+            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
+            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+
+            var normal_user = normalUserRepository.Find((int)id, (int)generation);
             if (normal_user == null)
             {
                 return HttpNotFound();
             }
-            var email = db.email_address.Where(e => e.generation == generation && e.logon_id == normal_user.logon_id).FirstOrDefault();
+            var email = emailAddressRepository.Find(normal_user.logon_id, normal_user.generation);
 
             return View(new NormalUserViewModel(normal_user, email));
         }
@@ -144,8 +155,11 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, int generation)
         {
-            normal_user normal_user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
-            var email = db.email_address.Where(e => e.logon_id == normal_user.logon_id && e.generation == generation).FirstOrDefault();
+            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
+            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+
+            var normal_user = normalUserRepository.Find((int)id, (int)generation);
+            var email = emailAddressRepository.Find(normal_user.logon_id, normal_user.generation);
             if (normal_user != null)
                 db.normal_user.Remove(normal_user);
             if (email != null)
