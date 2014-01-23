@@ -81,7 +81,7 @@ namespace MvcMovie.Models
         { 
             get {
                 var occus = new Dictionary<int, string>();
-                var entities = (IAddressBookManagerEntities)DependencyResolver.Current.GetService(typeof(IAddressBookManagerEntities));
+                var entities = DIFactory.Get<IAddressBookManagerEntities>();
                 entities.occupations.ToList().ForEach(o => occus.Add(o.code, o.name));
                 return occus;
             } 
