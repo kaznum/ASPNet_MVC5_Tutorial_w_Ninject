@@ -96,6 +96,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AbstractRepository.cs" />
+    <Compile Include="Repositories\EmailAddressRepository.cs" />
+    <Compile Include="Repositories\IEmailAddressRepository.cs" />
     <Compile Include="Repositories\INormalUserRepository.cs" />
     <Compile Include="Repositories\NormalUserRepository.cs" />
   </ItemGroup>
