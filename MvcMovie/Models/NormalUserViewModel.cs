@@ -98,7 +98,7 @@ namespace MvcMovie.Models
                 }
                 else
                 {
-                    var entities = (IAddressBookManagerEntities)DependencyResolver.Current.GetService(typeof(IAddressBookManagerEntities));
+                    var entities = DIFactory.Get<IAddressBookManagerEntities>();
                     var occ = entities.occupations.Where(o => o.code == this.OccupationCode).First();
                     return occ.name;
                 }
