@@ -8,13 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using AddressBookManagerDomain.Contexts;
 using MvcMovie.Models;
+using AddressBookManagerDomain.Repositories;
 
 namespace MvcMovie.Controllers
 {
-    public class NormalUsersController : Controller
+    public class NormalUsersController : AbstractController
     {
-
-        private IAddressBookManagerEntities db;
         public NormalUsersController(IAddressBookManagerEntities entities)
         {
             db = entities;
@@ -41,7 +40,9 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            normal_user normal_user = db.normal_user.Where(u => u.user_id == id && u.generation == generation).FirstOrDefault();
+
+            var normalUserRepository = (INormalUserRepository)DependencyResolver.Current.GetService(typeof(INormalUserRepository));
+            normal_user normal_user = normalUserRepository.Find((int)id, (int)generation);
             if (normal_user == null)
             {
                 return HttpNotFound();
