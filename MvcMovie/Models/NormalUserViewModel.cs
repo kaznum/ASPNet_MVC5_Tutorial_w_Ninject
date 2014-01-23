@@ -11,6 +11,15 @@ namespace MvcMovie.Models
 {
     public class NormalUserViewModel
     {
+        private IAddressBookManagerEntities _db;
+        private IAddressBookManagerEntities GetContext() {
+            if (_db == null)
+                _db = DIFactory.Get<IAddressBookManagerEntities>();
+            return _db;
+        }
+
+        private Dictionary<int, string> _occupationsDic;
+
         [Required(ErrorMessage = "メールアドレスを入力してください。")]
         [EmailAddress]
         [DisplayName("Email")]
@@ -80,10 +89,15 @@ namespace MvcMovie.Models
         public Dictionary<int, string> Occupations
         { 
             get {
-                var occus = new Dictionary<int, string>();
-                var entities = DIFactory.Get<IAddressBookManagerEntities>();
-                entities.occupations.ToList().ForEach(o => occus.Add(o.code, o.name));
-                return occus;
+                if (_occupationsDic == null)
+                {
+                    _occupationsDic = new Dictionary<int, string>();
+                    using (var entities = GetContext())
+                    {
+                        entities.occupations.ToList().ForEach(o => _occupationsDic.Add(o.code, o.name));
+                    }
+                }
+                return _occupationsDic;
             } 
         }
 
@@ -92,16 +106,8 @@ namespace MvcMovie.Models
         {
             get
             {
-                if (this.OccupationCode == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    var entities = DIFactory.Get<IAddressBookManagerEntities>();
-                    var occ = entities.occupations.Where(o => o.code == this.OccupationCode).First();
-                    return occ.name;
-                }
+                return (this.OccupationCode == null || !Occupations.ContainsKey((int)this.OccupationCode)) ? 
+                    null : Occupations[(int)this.OccupationCode];
             }
         }
     }

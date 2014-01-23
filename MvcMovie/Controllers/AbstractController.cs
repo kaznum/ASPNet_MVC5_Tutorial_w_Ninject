@@ -1,4 +1,6 @@
 ﻿using AddressBookManagerDomain.Contexts;
+using AddressBookManagerDomain.Repositories;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,17 @@ namespace MvcMovie.Controllers
 {
     public abstract class AbstractController : Controller
     {
-        protected IAddressBookManagerEntities db;
+        protected IContextRepositories R;
+        protected IKernel Kernel;
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                R.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 	}
 }

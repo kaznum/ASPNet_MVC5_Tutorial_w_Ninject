@@ -19,6 +19,7 @@ namespace AddressBookManagerDomain.Contexts
         public AddressBookManagerEntities()
             : base("name=AddressBookManagerEntities")
         {
+            Debug.WriteLine("AddressBookManagerEntities has been instanciated.");
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

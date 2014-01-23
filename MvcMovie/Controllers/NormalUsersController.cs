@@ -9,21 +9,25 @@ using System.Web.Mvc;
 using AddressBookManagerDomain.Contexts;
 using MvcMovie.Models;
 using AddressBookManagerDomain.Repositories;
+using System.Diagnostics;
+using Ninject;
 
 namespace MvcMovie.Controllers
 {
     public class NormalUsersController : AbstractController
     {
-        public NormalUsersController(IAddressBookManagerEntities entities)
+        public NormalUsersController(IContextRepositories repos, IKernel kernel)
         {
-            db = entities;
+            this.R = repos;
+            ViewBag.R = repos;
+            this.Kernel = kernel;
         }
 
         // GET: /NormalUsers/
         public ActionResult Index()
         {
-            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
-            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+            var normalUserRepository = R.NormalUserRepository;
+            var emailAddressRepository = R.EmailAddressRepository;
 
             var normalUsers = normalUserRepository.All();
 
@@ -45,8 +49,8 @@ namespace MvcMovie.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
-            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+            var normalUserRepository = R.NormalUserRepository;
+            var emailAddressRepository = R.EmailAddressRepository;
 
             var normal_user = normalUserRepository.Find((int)id, (int)generation);
             if (normal_user == null)
@@ -74,6 +78,7 @@ namespace MvcMovie.Controllers
         {
             if (ModelState.IsValid)
             {
+                var db = R.Context;
                 db.normal_user.Add(model.GetNormalUserEntity());
                 db.email_address.Add(model.GetEmailAddressEntity());
                 db.SaveChanges();
@@ -90,8 +95,8 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
-            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+            var normalUserRepository = R.NormalUserRepository;
+            var emailAddressRepository = R.EmailAddressRepository;
 
             normal_user user = normalUserRepository.Find((int)id, (int)generation);
             if (user == null)
@@ -116,9 +121,10 @@ namespace MvcMovie.Controllers
                 var user = model.GetNormalUserEntity();
                 var email = model.GetEmailAddressEntity();
 
+                var db = R.Context;
                 db.Entry(user).State = EntityState.Modified;
 
-                var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+                var emailAddressRepository = R.EmailAddressRepository;
                 var persistedEmail = emailAddressRepository.Find(user.logon_id, user.generation);
                 if (persistedEmail != null) {
                     persistedEmail.address = email.address;
@@ -139,8 +145,8 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
-            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+            var normalUserRepository = R.NormalUserRepository;
+            var emailAddressRepository = R.EmailAddressRepository;
 
             var normal_user = normalUserRepository.Find((int)id, (int)generation);
             if (normal_user == null)
@@ -157,8 +163,10 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, int generation)
         {
-            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
-            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+            var normalUserRepository = R.NormalUserRepository;
+            var emailAddressRepository = R.EmailAddressRepository;
+
+            var db = R.Context;
 
             var normal_user = normalUserRepository.Find((int)id, (int)generation);
             var email = emailAddressRepository.Find(normal_user.logon_id, normal_user.generation);
@@ -168,15 +176,6 @@ namespace MvcMovie.Controllers
                db.email_address.Remove(email);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

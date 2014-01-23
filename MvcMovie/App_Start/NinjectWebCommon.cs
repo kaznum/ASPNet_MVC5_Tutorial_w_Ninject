@@ -35,7 +35,7 @@ namespace MvcMovie.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -60,11 +60,10 @@ namespace MvcMovie.App_Start
             kernel.Bind<IMessageService>().To<MessageService>();
             // InRequestScope may not be needed
             // See https://github.com/ninject/Ninject.Web.Common/wiki/InRequestScope
-            kernel.Bind<IAddressBookManagerEntities>().To<AddressBookManagerEntities>().InRequestScope();
-            kernel.Bind<INormalUserRepository>().To<NormalUserRepository>().InRequestScope();
-            kernel.Bind<IEmailAddressRepository>().To<EmailAddressRepository>().InRequestScope();
-            //kernel.Bind<IAddressBookManagerEntities>().To<AddressBookManagerEntities>();
-
+            // InRequestScopeを使用した場合は、1リクエスト中でのKernel#Getは常に同じインスタンスを返す。
+            // この場合、常に使いまわしするのであればよいが、別コネクションが必要になった場合等に対応できない。（常に同じインスタンスが返されてしまう）
+            kernel.Bind<IAddressBookManagerEntities>().To<AddressBookManagerEntities>(); //.InRequestScope();
+            kernel.Bind<IContextRepositories>().To<ContextRepositories>();
         }        
     }
 }
