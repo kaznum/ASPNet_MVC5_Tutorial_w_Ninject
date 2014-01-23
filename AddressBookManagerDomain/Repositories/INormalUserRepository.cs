@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AddressBookManagerDomain.Contexts;
+using System;
+using System.Collections.Generic;
 namespace AddressBookManagerDomain.Repositories
 {
     public interface INormalUserRepository
     {
-        AddressBookManagerDomain.Contexts.normal_user Find(int userID, int generation);
+        normal_user Find(int userID, int generation);
+        IEnumerable<normal_user> All();
     }
 }

@@ -18,5 +18,10 @@ namespace AddressBookManagerDomain.Repositories
         {
             return db.normal_user.Where(nu => nu.user_id == userID && nu.generation == generation).FirstOrDefault();
         }
+
+        public IEnumerable<normal_user> All()
+        {
+            return db.normal_user;
+        }
     }
 }

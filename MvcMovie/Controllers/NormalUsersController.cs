@@ -22,11 +22,13 @@ namespace MvcMovie.Controllers
         // GET: /NormalUsers/
         public ActionResult Index()
         {
-            var models = new List<NormalUserViewModel>();
-            var normalUsers = db.normal_user.ToList();
-
+            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
             var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
-            normalUsers.ForEach(u =>
+
+            var normalUsers = normalUserRepository.All();
+
+            var models = new List<NormalUserViewModel>();
+            normalUsers.ToList().ForEach(u =>
             {
                 var email = emailAddressRepository.Find(u.logon_id, u.generation);
                 models.Add(new NormalUserViewModel(u, email));
