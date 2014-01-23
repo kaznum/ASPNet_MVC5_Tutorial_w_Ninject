@@ -41,13 +41,14 @@ namespace MvcMovie.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var normalUserRepository = (INormalUserRepository)DependencyResolver.Current.GetService(typeof(INormalUserRepository));
-            normal_user normal_user = normalUserRepository.Find((int)id, (int)generation);
+            var normalUserRepository = DIFactory.Get<INormalUserRepository>();
+            var emailAddressRepository = DIFactory.Get<IEmailAddressRepository>();
+
+            var normal_user = normalUserRepository.Find((int)id, (int)generation);
             if (normal_user == null)
             {
                 return HttpNotFound();
             }
-            var emailAddressRepository = (IEmailAddressRepository)DependencyResolver.Current.GetService(typeof(IEmailAddressRepository));
             var email = emailAddressRepository.Find(normal_user.logon_id, (int)generation);
 
             return View(new NormalUserViewModel(normal_user, email));
