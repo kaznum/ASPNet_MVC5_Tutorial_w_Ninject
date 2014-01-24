@@ -41,6 +41,14 @@ namespace AddressBookManagerDomain.Repositories
                 return SingletonRepository<EmailAddressRepository>() as IEmailAddressRepository;
             }
         }
+        public IOccupationRepository OccupationRepository
+        {
+            get
+            {
+                return SingletonRepository<OccupationRepository>() as IOccupationRepository;
+            }
+        }
+
         private AbstractRepository SingletonRepository<T>() where T : class
         {
             if (!repos.ContainsKey(typeof(T)))

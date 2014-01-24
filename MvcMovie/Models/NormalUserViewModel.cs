@@ -1,4 +1,5 @@
 ﻿using AddressBookManagerDomain.Contexts;
+using AddressBookManagerDomain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,11 +12,11 @@ namespace MvcMovie.Models
 {
     public class NormalUserViewModel
     {
-        private IAddressBookManagerEntities _db;
-        private IAddressBookManagerEntities GetContext() {
-            if (_db == null)
-                _db = DIFactory.Get<IAddressBookManagerEntities>();
-            return _db;
+        private IContextRepositories _repos;
+        private IContextRepositories GetRepositories() {
+            if (_repos == null)
+                _repos = DIFactory.Get<IContextRepositories>();
+            return _repos;
         }
 
         private Dictionary<int, string> _occupationsDic;
@@ -91,10 +92,9 @@ namespace MvcMovie.Models
             get {
                 if (_occupationsDic == null)
                 {
-                    _occupationsDic = new Dictionary<int, string>();
-                    using (var entities = GetContext())
+                    using (var repos = GetRepositories())
                     {
-                        entities.occupations.ToList().ForEach(o => _occupationsDic.Add(o.code, o.name));
+                        _occupationsDic = repos.OccupationRepository.GetOccupationCodeNames();
                     }
                 }
                 return _occupationsDic;

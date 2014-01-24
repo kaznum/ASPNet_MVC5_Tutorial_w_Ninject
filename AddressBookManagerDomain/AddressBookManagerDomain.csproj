@@ -101,7 +101,9 @@
     <Compile Include="Repositories\IContextRepositories.cs" />
     <Compile Include="Repositories\IEmailAddressRepository.cs" />
     <Compile Include="Repositories\INormalUserRepository.cs" />
+    <Compile Include="Repositories\IOccupationRepository.cs" />
     <Compile Include="Repositories\NormalUserRepository.cs" />
+    <Compile Include="Repositories\OccupationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

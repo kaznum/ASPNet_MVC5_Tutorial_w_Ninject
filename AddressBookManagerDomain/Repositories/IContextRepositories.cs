@@ -6,6 +6,7 @@ namespace AddressBookManagerDomain.Repositories
     {
         IEmailAddressRepository EmailAddressRepository { get; }
         INormalUserRepository NormalUserRepository { get; }
+        IOccupationRepository OccupationRepository { get; }
         void Save();
         IAddressBookManagerEntities Context { get; }
     }
