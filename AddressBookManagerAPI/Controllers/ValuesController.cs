@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AddressBookManagerDomain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,10 +10,14 @@ namespace AddressBookManagerAPI.Controllers
 {
     public class ValuesController : ApiController
     {
+        private IContextRepositories R;
+        public ValuesController(IContextRepositories r)
+        {
+            this.R = r;
+        }
         // GET api/values
         public IEnumerable<string> Get()
         {
-
             return new string[] { "value1", "value2" };
         }
 
