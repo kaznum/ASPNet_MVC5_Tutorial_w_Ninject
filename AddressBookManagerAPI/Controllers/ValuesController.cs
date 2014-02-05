@@ -1,4 +1,5 @@
-﻿using AddressBookManagerDomain.Repositories;
+﻿using AddressBookManagerDomain.Contexts;
+using AddressBookManagerDomain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace AddressBookManagerAPI.Controllers
             this.R = r;
         }
         // GET api/values
-        public IEnumerable<string> Get()
+        public IEnumerable<normal_user> Get()
         {
-            return new string[] { "value1", "value2" };
+            return R.NormalUserRepository.All().ToList();
         }
 
         // GET api/values/5
